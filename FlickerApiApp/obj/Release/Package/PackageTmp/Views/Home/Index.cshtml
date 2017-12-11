@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
-    <link rel="stylesheet" href="@Url.Content(" ~ />Content/Site.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Css/thumbnail-gallery.css")">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="container gallery-container">
-        <h1>Bootstrap 3 Gallery</h1>
-        <p class="page-description text-center">Thumbnails With Title And Description</p>
+        <h1>Flickr Api Gallery</h1>
+        <p class="page-description text-center">Thumbnails With Title</p>
+        <p class="page-description text-center">Front-end work based on <a href="https://tutorialzine.com/2017/02/freebie-4-bootstrap-galleries">Freebie</a></p>
 
         <div class="tz-gallery">
             <div class="row items">
@@ -44,7 +45,7 @@
 
             </div>
             <div class="col-md-4">
-                <a href="javascript:load_more_photos();">Load More...</a>
+                <a class="btn input-block-level form-control" href="javascript:load_more_photos();">Load More...</a>
             </div>
             <div class="col-md-4">
 
@@ -57,13 +58,14 @@
         var current_index = 1;
 
         function load_more_photos() {
-            $.getJSON("http://flickrapi.azurewebsites.net/api/query/" + current_index + 1, function (data) {
+            $.getJSON("/api/query/" + current_index + 1, function (data) {
                 var items = [];
                 $.each(data.photos.photo, function (key, val) {
                     items.push("<div class=\"col-sm-6 col-md-4\"><div class=\"thumbnail\"><a class=\"lightbox\" href=\""+val.image_url+"\"><img src=\""+val.image_url+"\" alt=\""+val.title+"\"></a><div class=\"caption\"><h3>"+val.title+"</h3></div></div></div>");
                 });
 
                 $(".tz-gallery .items").append(items.join(""));
+                baguetteBox.run('.tz-gallery');
                 current_index++;
             });
         }
