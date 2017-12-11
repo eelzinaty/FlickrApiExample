@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="flickrapi" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^c:\\users\\eelzinaty\\documents\\visual\ studio\ 2013\\Projects\\FlickerApiApp\\FlickerApiApp\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^c:\\users\\eelzinaty\\documents\\visual\ studio\ 2013\\Projects\\FlickerApiApp\\FlickerApiApp\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+</parameters>

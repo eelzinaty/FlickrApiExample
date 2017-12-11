@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Freebie: 4 Bootstrap Gallery Templates</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="@Url.Content(" ~ />Content/Site.css")">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container gallery-container">
+        <h1>Bootstrap 3 Gallery</h1>
+        <p class="page-description text-center">Thumbnails With Title And Description</p>
+
+        <div class="tz-gallery">
+            <div class="row items">
+                @foreach (var photo in ViewBag.Photos.photo)
+                {
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <a class="lightbox" href="@photo.image_url">
+                                <img src="@photo.image_url" alt="@photo.title">
+                            </a>
+                            <div class="caption">
+                                <h3>@photo.title</h3>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+                <a href="javascript:load_more_photos();">Load More...</a>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+        var current_index = 1;
+
+        function load_more_photos() {
+            $.getJSON("http://flickrapi.azurewebsites.net/api/query/" + current_index + 1, function (data) {
+                var items = [];
+                $.each(data.photos.photo, function (key, val) {
+                    items.push("<div class=\"col-sm-6 col-md-4\"><div class=\"thumbnail\"><a class=\"lightbox\" href=\""+val.image_url+"\"><img src=\""+val.image_url+"\" alt=\""+val.title+"\"></a><div class=\"caption\"><h3>"+val.title+"</h3></div></div></div>");
+                });
+
+                $(".tz-gallery .items").append(items.join(""));
+                current_index++;
+            });
+        }
+
+    </script>
+</body>
+</html>
